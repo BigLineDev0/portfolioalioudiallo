@@ -389,7 +389,7 @@ ul li a:hover{
 
 .skills-card:hover {
     box-shadow: 5px 5px 40px rgba(0,0,0,0.15);
-    transform: translateY(-10px);
+    transform: translateY(-5px);
 }
 
 /* Header carte */
