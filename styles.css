@@ -221,7 +221,7 @@ ul li a:hover{
     gap: 20px;
 }
 
-.home-section .left .buttons button{
+.home-section .left .buttons a{
     padding: 10px 25px;
     background-color: var(--primary-color);
     color: #fff;
@@ -231,15 +231,16 @@ ul li a:hover{
     font-weight: bold;
     cursor: pointer;
     box-shadow: 5px 5px 30px rgba(0,0,0,0.1);
+    text-decoration: none;
     
 }
 
-.home-section .left .buttons button:nth-child(2){
+.home-section .left .buttons a:nth-child(2){
     background-color: transparent;
     color: var(--primary-color);
 }
 
-.home-section .left .buttons button:hover {
+.home-section .left .buttons a:hover {
     transform: translateY(-3px);
 }
 
