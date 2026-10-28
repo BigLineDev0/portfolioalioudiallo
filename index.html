@@ -1,764 +1,1198 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mon Portfolio</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
-        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Aliou DIALLO · Développeur Full-Stack web, mobile et IA à Dakar</title>
+  <meta name="description"
+    content="Aliou DIALLO, développeur Full-Stack polyvalent basé à Dakar : applications web et mobiles, API, bases de données et intégration de l'intelligence artificielle. Disponible pour de nouvelles missions.">
+  <link rel="canonical" href="https://portfolioalioudiallo.vercel.app/">
+  <meta name="theme-color" content="#13110E">
+
+  <!-- Thème appliqué avant le premier rendu pour éviter tout flash : choix mémorisé, sinon préférence système, sinon sombre -->
+  <script>
+    (function () {
+      var theme = 'dark';
+      try {
+        var saved = localStorage.getItem('theme');
+        if (saved === 'light' || saved === 'dark') theme = saved;
+        else if (window.matchMedia('(prefers-color-scheme: light)').matches) theme = 'light';
+      } catch (e) { }
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+
+  <link rel="preload" href="assets/fonts/plex-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/newsreader-500-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+
+  <link rel="icon" href="favicon.ico" sizes="32x32">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+
+  <!-- Partage sur les réseaux -->
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="fr_FR">
+  <meta property="og:site_name" content="Aliou DIALLO">
+  <meta property="og:url" content="https://portfolioalioudiallo.vercel.app/">
+  <meta property="og:title" content="Aliou DIALLO · Développeur Full-Stack web, mobile et IA">
+  <meta property="og:description"
+    content="Développeur Full-Stack polyvalent : applications web et mobiles, API et intelligence artificielle. Basé à Dakar, disponible pour de nouvelles missions.">
+  <meta property="og:image" content="https://portfolioalioudiallo.vercel.app/images/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Aliou DIALLO, développeur Full-Stack web, mobile et IA, Dakar.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Aliou DIALLO · Développeur Full-Stack web, mobile et IA">
+  <meta name="twitter:description"
+    content="Développeur Full-Stack polyvalent : web, mobile et intelligence artificielle. Basé à Dakar.">
+  <meta name="twitter:image" content="https://portfolioalioudiallo.vercel.app/images/og-image.jpg">
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Aliou DIALLO",
+      "jobTitle": "Développeur Full-Stack",
+      "description": "Développeur Full-Stack web, mobile et IA.",
+      "url": "https://portfolioalioudiallo.vercel.app/",
+      "image": "https://portfolioalioudiallo.vercel.app/images/aliou-800.webp",
+      "email": "mailto:alioudiallo.py@gmail.com",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Dakar",
+        "addressCountry": "SN"
+      },
+      "alumniOf": { "@type": "Organization", "name": "Simplon Sénégal" },
+      "knowsAbout": ["Développement web", "Développement mobile", "Intelligence artificielle", "Python", "PHP", "TypeScript", "Flutter"],
+      "sameAs": ["https://github.com/BigLineDev0", "https://www.linkedin.com/in/aliou-diallo-6704681a1/"]
+    }
+  </script>
+
+  <!-- Scripts classiques différés : ils fonctionnent aussi quand index.html est ouvert directement (file://) -->
+  <script src="assets/js/theme.js" defer></script>
+  <script src="assets/js/nav.js" defer></script>
+  <script src="assets/js/projects.js" defer></script>
+  <script src="assets/js/reveal.js" defer></script>
+  <script src="assets/js/contact.js" defer></script>
+  <script src="assets/js/main.js" defer></script>
 </head>
 
 <body>
-    <!-- ===== HEADER ===== -->
-    <header>
-        <div class="logo-div">
-            <div class="logo">
-                <span>
-                    A. DIALLO
-                </span>
-            </div>
+  <!-- Sprite d'icônes (Lucide, licence ISC) : chaque icône est réutilisée via <use href="#i-..."> -->
+  <svg xmlns="http://www.w3.org/2000/svg" class="hidden" aria-hidden="true">
+    <symbol id="i-sun" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="4" />
+      <path
+        d="M12 2v2M12 20v2m-7.07-17.07 1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
+    </symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24">
+      <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+    </symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24">
+      <path d="M4 7h16M4 12h16M4 17h16" />
+    </symbol>
+    <symbol id="i-x" viewBox="0 0 24 24">
+      <path d="M18 6 6 18M6 6l12 12" />
+    </symbol>
+    <symbol id="i-arrow-up-right" viewBox="0 0 24 24">
+      <path d="M7 7h10v10M7 17 17 7" />
+    </symbol>
+    <symbol id="i-arrow-right" viewBox="0 0 24 24">
+      <path d="M5 12h14m-7-7 7 7-7 7" />
+    </symbol>
+    <symbol id="i-arrow-up" viewBox="0 0 24 24">
+      <path d="m5 12 7-7 7 7M12 19V5" />
+    </symbol>
+    <symbol id="i-download" viewBox="0 0 24 24">
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4m4-5 5 5 5-5m-5 5V3" />
+    </symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24">
+      <rect width="20" height="16" x="2" y="4" rx="2" />
+      <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+    </symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24">
+      <path
+        d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z" />
+    </symbol>
+    <symbol id="i-github" viewBox="0 0 24 24">
+      <path
+        d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.4 5.4 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65S8.93 17.38 9 18v4" />
+      <path d="M9 18c-4.51 2-5-2-7-2" />
+    </symbol>
+    <symbol id="i-linkedin" viewBox="0 0 24 24">
+      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6Z" />
+      <rect width="4" height="12" x="2" y="9" />
+      <circle cx="4" cy="4" r="2" />
+    </symbol>
+    <symbol id="i-send" viewBox="0 0 24 24">
+      <path d="m22 2-7 20-4-9-9-4Z" />
+      <path d="M22 2 11 13" />
+    </symbol>
+    <symbol id="i-loader" viewBox="0 0 24 24">
+      <path d="M21 12a9 9 0 1 1-6.22-8.56" />
+    </symbol>
+    <symbol id="i-image" viewBox="0 0 24 24">
+      <rect width="18" height="18" x="3" y="3" rx="2" />
+      <circle cx="9" cy="9" r="2" />
+      <path d="m21 15-3.09-3.09a2 2 0 0 0-2.82 0L6 21" />
+    </symbol>
+    <symbol id="i-file-search" viewBox="0 0 24 24">
+      <path d="M4 22h14a2 2 0 0 0 2-2V7l-5-5H6a2 2 0 0 0-2 2v3" />
+      <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+      <circle cx="5" cy="14" r="3" />
+      <path d="m9 18-1.5-1.5" />
+    </symbol>
+    <symbol id="i-message" viewBox="0 0 24 24">
+      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2Z" />
+    </symbol>
+    <symbol id="i-kanban" viewBox="0 0 24 24">
+      <path d="M6 5v11m6-11v6m6-6v14" />
+    </symbol>
+  </svg>
+
+  <a href="#contenu"
+    class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded focus:bg-accent focus:px-4 focus:py-3 focus:font-medium focus:text-on-accent">Aller
+    au contenu</a>
+
+  <!-- ========== EN-TÊTE ET NAVIGATION ========== -->
+  <header id="site-header"
+    class="fixed inset-x-0 top-0 z-40 border-b border-transparent transition-colors data-[scrolled=true]:border-line data-[scrolled=true]:bg-canvas/90 data-[scrolled=true]:backdrop-blur-md">
+    <div class="page flex h-header items-center justify-between gap-4">
+      <a href="#accueil" class="inline-flex min-h-tap items-center font-display text-xl">A.&nbsp;DIALLO</a>
+
+      <nav aria-label="Navigation principale" class="hidden lg:block">
+        <ul class="flex items-center">
+          <li><a class="nav-link" href="#accueil" data-nav>Accueil</a></li>
+          <li><a class="nav-link" href="#a-propos" data-nav>À propos</a></li>
+          <li><a class="nav-link" href="#projets" data-nav>Projets</a></li>
+          <li><a class="nav-link" href="#competences" data-nav>Compétences</a></li>
+          <li><a class="nav-link" href="#experiences" data-nav>Expériences</a></li>
+          <li><a class="nav-link" href="#contact" data-nav>Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="flex items-center gap-1 sm:gap-2">
+        <button id="theme-toggle" type="button" class="btn-icon" aria-label="Activer le thème clair">
+          <svg class="icon [[data-theme=light]_&]:hidden" aria-hidden="true">
+            <use href="#i-sun"></use>
+          </svg>
+          <svg class="icon hidden [[data-theme=light]_&]:block" aria-hidden="true">
+            <use href="#i-moon"></use>
+          </svg>
+        </button>
+        <a class="btn-primary hidden px-4 sm:inline-flex" href="CV_Aliou_DIALLO.pdf" download="CV_Aliou_DIALLO.pdf">
+          <svg class="icon h-4 w-4" aria-hidden="true">
+            <use href="#i-download"></use>
+          </svg>
+          Télécharger mon CV
+        </a>
+        <button id="menu-toggle" type="button" class="btn-icon group lg:hidden" aria-expanded="false"
+          aria-controls="menu-mobile" aria-label="Ouvrir le menu">
+          <svg class="icon group-aria-expanded:hidden" aria-hidden="true">
+            <use href="#i-menu"></use>
+          </svg>
+          <svg class="icon hidden group-aria-expanded:block" aria-hidden="true">
+            <use href="#i-x"></use>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Menu mobile : panneau compact déroulé sous l'en-tête, focus piégé, fermeture par Échap ou clic à côté (voir nav.js) -->
+    <div id="menu-mobile" class="absolute inset-x-0 top-full z-40 border-b border-line bg-canvas shadow-lift lg:hidden"
+      hidden>
+      <nav aria-label="Navigation mobile" class="page py-3">
+        <ul class="divide-y divide-line">
+          <li><a class="menu-link" href="#accueil" data-nav>Accueil</a></li>
+          <li><a class="menu-link" href="#a-propos" data-nav>À propos</a></li>
+          <li><a class="menu-link" href="#projets" data-nav>Projets</a></li>
+          <li><a class="menu-link" href="#competences" data-nav>Compétences</a></li>
+          <li><a class="menu-link" href="#experiences" data-nav>Expériences</a></li>
+          <li><a class="menu-link" href="#contact" data-nav>Contact</a></li>
+        </ul>
+        <a class="btn-primary mb-2 mt-4 w-full sm:hidden" href="CV_Aliou_DIALLO.pdf" download="CV_Aliou_DIALLO.pdf">
+          <svg class="icon h-4 w-4" aria-hidden="true">
+            <use href="#i-download"></use>
+          </svg>
+          Télécharger mon CV
+        </a>
+      </nav>
+    </div>
+  </header>
+  <div id="menu-voile" class="fixed inset-0 z-30 bg-canvas/70 lg:hidden" hidden></div>
+
+  <main id="contenu" tabindex="-1" class="focus:outline-none">
+
+    <!-- ========== ACCUEIL ========== -->
+    <section id="accueil" class="flex min-h-[100svh] items-center pb-16 pt-[calc(theme(spacing.header)+2.5rem)]"
+      aria-labelledby="titre-accueil">
+      <div
+        class="page flex flex-col items-center gap-14 text-center lg:flex-row lg:justify-between lg:gap-16 lg:text-left">
+        <div class="max-w-2xl">
+          <h1 id="titre-accueil" class="text-display">Aliou DIALLO</h1>
+          <p class="mt-5 min-h-[2.5em] font-display text-h3 sm:min-h-[1.25em]">
+            <span class="sr-only">Développeur Full-Stack, web, mobile et intelligence artificielle</span>
+            <span aria-hidden="true">Je suis <span class="text-accent"
+                data-roles="Développeur Full-Stack|Développeur Web et Mobile|Intégrateur de solutions IA">Développeur
+                Full-Stack</span></span>
+          </p>
+          <p class="mx-auto mt-6 max-w-xl text-lead text-muted lg:mx-0">
+            Je conçois et développe des applications web et mobiles complètes, de l'interface à l'API et à la base de
+            données.
+            Polyvalent, je travaille aussi bien en Python et PHP qu'en TypeScript ou en Dart, et j'intègre
+            l'intelligence artificielle lorsqu'elle sert le projet.
+          </p>
+
+          <div class="mt-10 flex flex-col items-center gap-6 sm:flex-row sm:justify-center lg:justify-start">
+            <a class="btn-primary px-6" href="CV_Aliou_DIALLO.pdf" download="CV_Aliou_DIALLO.pdf">
+              <svg class="icon h-4 w-4" aria-hidden="true">
+                <use href="#i-download"></use>
+              </svg>
+              Télécharger mon CV
+            </a>
+            <ul class="flex gap-3" aria-label="Réseaux et contact">
+              <li>
+                <a class="social" href="https://github.com/BigLineDev0" target="_blank" rel="noopener noreferrer"
+                  aria-label="GitHub (nouvel onglet)">
+                  <svg class="icon" aria-hidden="true">
+                    <use href="#i-github"></use>
+                  </svg>
+                </a>
+              </li>
+              <li>
+                <a class="social" href="https://www.linkedin.com/in/aliou-diallo-6704681a1/" target="_blank"
+                  rel="noopener noreferrer" aria-label="LinkedIn (nouvel onglet)">
+                  <svg class="icon" aria-hidden="true">
+                    <use href="#i-linkedin"></use>
+                  </svg>
+                </a>
+              </li>
+              <li>
+                <a class="social" href="mailto:alioudiallo.py@gmail.com" aria-label="Email : alioudiallo.py@gmail.com">
+                  <svg class="icon" aria-hidden="true">
+                    <use href="#i-mail"></use>
+                  </svg>
+                </a>
+              </li>
+              <li>
+                <a class="social" href="tel:+221784751639" aria-label="Téléphone : +221 78 475 16 39">
+                  <svg class="icon" aria-hidden="true">
+                    <use href="#i-phone"></use>
+                  </svg>
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
 
-        <!-- Checkbox cachée -->
-        <input type="checkbox" id="menu-toggle">
+        <div class="portrait order-first lg:order-none">
+          <img src="images/aliou-800.webp" srcset="images/aliou-480.webp 480w, images/aliou-800.webp 800w"
+            sizes="(min-width: 1024px) 368px, 60vw" width="800" height="1000"
+            alt="Portrait d'Aliou DIALLO, bras croisés, en chemise bleue." fetchpriority="high" decoding="async">
+        </div>
+      </div>
+    </section>
 
-        <!-- Burger -->
-        <label for="menu-toggle" class="burger">
-            <span></span>
-            <span></span>
-            <span></span>
-        </label>
+    <!-- ========== À PROPOS ========== -->
+    <section id="a-propos" class="section section-alt" aria-labelledby="titre-a-propos">
+      <div class="page">
+        <header class="section-header">
+          <h2 id="titre-a-propos" class="section-title">À propos</h2>
+        </header>
 
-        <ul>
-            <li><a href="#home" class="active">Accueil</a></li>
-            <li><a href="#about">A propos</a></li>
-            <li><a href="#skills">Compétences</a></li>
-            <li><a href="#projects">Projets</a></li>
-            <li><a href="#contact">Contact</a></li>
+        <div class="grid gap-12 lg:grid-cols-12 lg:gap-16">
+          <div class="lg:col-span-7" data-reveal>
+            <h3 class="text-h3">Qui suis-je</h3>
+            <div class="mt-5 space-y-4 leading-relaxed text-muted">
+              <p>
+                <strong class="font-medium text-ink">Développeur Full-Stack</strong>, je conçois des applications web et
+                mobiles complètes&nbsp;:
+                interfaces, API, bases de données et, quand le besoin s'y prête, fonctionnalités d'intelligence
+                artificielle.
+                Je travaille avec plusieurs écosystèmes (Python avec Django et FastAPI, PHP avec Laravel, TypeScript
+                avec Angular, React et Vue.js, Flutter et React Native pour le mobile)
+                et je choisis les outils en fonction du projet, pas l'inverse.
+              </p>
+              <p>
+                Mon parcours associe une formation universitaire, une Licence puis un Master en conception et
+                développement d'applications,
+                à une formation intensive chez Simplon Sénégal tournée vers la pratique&nbsp;: projets en équipe, Git
+                Flow, délais courts.
+                J'y ai conçu SenLab, une plateforme de gestion pour les laboratoires de recherche, dont le laboratoire
+                UMRED est le site pilote.
+              </p>
+              <p>
+                Formateur chez Groupe Codeurs, j'ai accompagné des apprenants et préparé des supports de cours.
+                Cette expérience m'a appris à structurer mon travail et à expliquer clairement mes choix techniques, en
+                équipe comme face à un client.
+              </p>
+              <p>
+                Je suis ouvert aux postes en entreprise, aux missions freelance et aux collaborations sur des projets
+                utiles.
+              </p>
+            </div>
+
+          </div>
+
+          <div class="lg:col-span-5" data-reveal>
+            <h3 class="text-h3">Formations</h3>
+            <ul class="mt-5 grid gap-4">
+              <li class="card border-l-2 border-l-accent p-5">
+                <p class="text-sm text-muted"><time datetime="2025-11">Novembre 2025</time> – <time
+                      datetime="2026-10">octobre 2026</time></p>
+                <p class="mt-1 font-medium">Développement Web, Mobile et IA</p>
+                <p class="mt-1 text-muted">Simplon Sénégal</p>
+              </li>
+              <li class="card border-l-2 border-l-accent p-5">
+                <p class="text-sm text-muted"><time datetime="2023">2023</time> – <time
+                      datetime="2025">2025</time></p>
+                <p class="mt-1 font-medium">Master Conception et Développement d'Applications</p>
+                <p class="mt-1 text-muted">Université Numérique Cheikh Hamidou KANE</p>
+              </li>
+              <li class="card border-l-2 border-l-accent p-5">
+                <p class="text-sm text-muted"><time datetime="2019">2019</time> – <time
+                      datetime="2022">2022</time></p>
+                <p class="mt-1 font-medium">Licence en Informatique, Développement d'Applications (IDA)</p>
+                <p class="mt-1 text-muted">Université Numérique Cheikh Hamidou KANE</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== PROJETS ========== -->
+    <!-- Captures : déposer le fichier dans images/projets/ (format paysage conseillé, au moins 960 px de large), puis
+         l'ajouter dans le bloc .media de la carte, après le <span class="media-empty"> :
+         <img src="images/projets/nom.webp" width="960" height="600" alt="..." loading="lazy" decoding="async">
+         Sans <img>, la carte affiche « Capture non disponible ». -->
+    <section id="projets" class="section" aria-labelledby="titre-projets">
+      <div class="page">
+        <header class="section-header">
+          <h2 id="titre-projets" class="section-title">Mes projets</h2>
+          <p class="section-desc">Une sélection de projets web, mobile et IA, réalisés seul ou en équipe.</p>
+        </header>
+
+        <!-- Filtres : affichés par projects.js, inutiles sans JavaScript -->
+        <div id="filtres" class="mb-10" hidden>
+          <ul class="flex flex-wrap justify-center gap-2" aria-label="Filtrer les projets par catégorie">
+            <li><button type="button" class="chip" data-filter="tous" aria-pressed="true">Tous</button></li>
+            <li><button type="button" class="chip" data-filter="web" aria-pressed="false">Web</button></li>
+            <li><button type="button" class="chip" data-filter="ia" aria-pressed="false">IA</button></li>
+            <li><button type="button" class="chip" data-filter="mobile" aria-pressed="false">Mobile</button></li>
+            <li><button type="button" class="chip" data-filter="formation" aria-pressed="false">Formation</button></li>
+          </ul>
+          <p id="projets-statut" class="sr-only" aria-live="polite"></p>
+        </div>
+
+        <ul id="projets-liste" class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <li class="flex" data-project data-categories="web ia formation" data-reveal>
+            <article class="card-interactive flex w-full flex-col overflow-hidden">
+              <div class="media">
+                <span class="media-empty">
+                  <svg class="icon h-8 w-8" aria-hidden="true">
+                    <use href="#i-image"></use>
+                  </svg>
+                  Capture non disponible
+                </span>
+                <img src="images/projets/senlab.webp" width="960" height="600" alt="Tableau de bord de SenLab"
+                  loading="lazy" decoding="async">
+              </div>
+              <div class="flex flex-1 flex-col p-5 sm:p-6">
+                <h3 class="text-h3">SenLab</h3>
+                <p class="mt-2 text-[0.9375rem] text-muted">Plateforme de gestion des rendez-vous, des équipements et de
+                  la maintenance pour les laboratoires de recherche. Projet de certification, avec le laboratoire UMRED
+                  de l'Université Iba Der Thiam de Thiès comme site pilote.</p>
+                <ul class="mt-4 flex flex-wrap gap-1.5" aria-label="Technologies">
+                  <li class="badge">Angular</li>
+                  <li class="badge">Django REST</li>
+                  <li class="badge">PostgreSQL</li>
+                  <li class="badge">FastAPI</li>
+                  <li class="badge">Tailwind CSS</li>
+                </ul>
+                <div class="mt-auto flex flex-wrap gap-2 pt-5">
+                  <a class="btn-secondary px-3 text-sm" href="https://github.com/BigLineDev0/umred-backend-api"
+                    target="_blank" rel="noopener noreferrer"><svg class="icon h-4 w-4" aria-hidden="true">
+                      <use href="#i-github"></use>
+                    </svg>Code<span class="sr-only"> de SenLab (nouvel onglet)</span></a>
+                  <a class="btn-secondary px-3 text-sm" href="https://senlab.site/" target="_blank"
+                    rel="noopener noreferrer"><svg class="icon h-4 w-4" aria-hidden="true">
+                      <use href="#i-arrow-up-right"></use>
+                    </svg>Démo<span class="sr-only"> de SenLab (nouvel onglet)</span></a>
+                </div>
+              </div>
+            </article>
+          </li>
+
+          <li class="flex" data-project data-categories="web formation" data-reveal>
+            <article class="card-interactive flex w-full flex-col overflow-hidden">
+              <div class="media">
+                <span class="media-empty">
+                  <svg class="icon h-8 w-8" aria-hidden="true">
+                    <use href="#i-image"></use>
+                  </svg>
+                  Capture non disponible
+                </span>
+                <img src="images/projets/and-setal.webp" width="960" height="600"
+                  alt="Tableau de bord d'Andë Sétal : indicateurs des signalements et carte du Plateau" loading="lazy" decoding="async">
+              </div>
+              <div class="flex flex-1 flex-col p-5 sm:p-6">
+                <h3 class="text-h3">Andë Sétal</h3>
+                <p class="mt-2 text-[0.9375rem] text-muted">Application citoyenne pour suivre la salubrité à Dakar
+                  Plateau. J'étais lead dev frontend dans une équipe de 4, avec 8 jours pour intégrer et développer, en
+                  Git Flow.</p>
+                <ul class="mt-4 flex flex-wrap gap-1.5" aria-label="Technologies">
+                  <li class="badge">Angular</li>
+                  <li class="badge">TypeScript</li>
+                  <li class="badge">Django REST</li>
+                  <li class="badge">MySQL</li>
+                  <li class="badge">Git Flow</li>
+                </ul>
+                <div class="mt-auto flex flex-wrap gap-2 pt-5">
+                  <a class="btn-secondary px-3 text-sm" href="https://github.com/BigLineDev0/and-setal" target="_blank"
+                    rel="noopener noreferrer"><svg class="icon h-4 w-4" aria-hidden="true">
+                      <use href="#i-github"></use>
+                    </svg>Code<span class="sr-only"> d'Andë Sétal (nouvel onglet)</span></a>
+                </div>
+              </div>
+            </article>
+          </li>
+
+          <li class="flex" data-project data-categories="ia web" data-reveal>
+            <article class="card-interactive flex w-full flex-col overflow-hidden">
+              <div class="media">
+                <span class="media-empty">
+                  <svg class="icon h-8 w-8" aria-hidden="true">
+                    <use href="#i-image"></use>
+                  </svg>
+                  Capture non disponible
+                </span>
+              </div>
+              <div class="flex flex-1 flex-col p-5 sm:p-6">
+                <h3 class="text-h3">SmartHelp</h3>
+                <p class="mt-2 text-[0.9375rem] text-muted">Micro-service qui analyse une réclamation client reçue en
+                  audio (Whisper), en image (ViT) ou en texte (RAG sur une base interne), avec une interface Angular.
+                </p>
+                <ul class="mt-4 flex flex-wrap gap-1.5" aria-label="Technologies">
+                  <li class="badge">FastAPI</li>
+                  <li class="badge">Whisper</li>
+                  <li class="badge">ViT</li>
+                  <li class="badge">sentence-transformers</li>
+                  <li class="badge">Angular</li>
+                </ul>
+                <div class="mt-auto flex flex-wrap gap-2 pt-5">
+                  <a class="btn-secondary px-3 text-sm"
+                    href="https://github.com/BigLineDev0/smarthelp-support-multimodal" target="_blank"
+                    rel="noopener noreferrer"><svg class="icon h-4 w-4" aria-hidden="true">
+                      <use href="#i-github"></use>
+                    </svg>Code API<span class="sr-only"> de SmartHelp (nouvel onglet)</span></a>
+                  <a class="btn-secondary px-3 text-sm" href="https://github.com/BigLineDev0/smarthelp-ui-frontend"
+                    target="_blank" rel="noopener noreferrer"><svg class="icon h-4 w-4" aria-hidden="true">
+                      <use href="#i-github"></use>
+                    </svg>Code front<span class="sr-only"> de SmartHelp (nouvel onglet)</span></a>
+                </div>
+              </div>
+            </article>
+          </li>
+
+          <li class="flex" data-project data-categories="ia web" data-reveal>
+            <article class="card-interactive flex w-full flex-col overflow-hidden">
+              <div class="media">
+                <span class="media-empty">
+                  <svg class="icon h-8 w-8" aria-hidden="true">
+                    <use href="#i-image"></use>
+                  </svg>
+                  Capture non disponible
+                </span>
+              </div>
+              <div class="flex flex-1 flex-col p-5 sm:p-6">
+                <h3 class="text-h3">Contrôle Qualité Produit</h3>
+                <p class="mt-2 text-[0.9375rem] text-muted">API de vision FastAPI qui classe la photo d'un produit comme «&nbsp;conforme&nbsp;» ou «&nbsp;défaut&nbsp;», avec un
+                  modèle Hugging Face en zero-shot, sans entraînement spécifique.</p>
+                <ul class="mt-4 flex flex-wrap gap-1.5" aria-label="Technologies">
+                  <li class="badge">FastAPI</li>
+                  <li class="badge">Hugging Face</li>
+                  <li class="badge">zero-shot</li>
+                </ul>
+                <div class="mt-auto flex flex-wrap gap-2 pt-5">
+                  <a class="btn-secondary px-3 text-sm"
+                    href="https://github.com/BigLineDev0/controle-qualite-produit" target="_blank"
+                    rel="noopener noreferrer"><svg class="icon h-4 w-4" aria-hidden="true">
+                      <use href="#i-github"></use>
+                    </svg>Code<span class="sr-only"> de Contrôle Qualité Produit (nouvel onglet)</span></a>
+                </div>
+              </div>
+            </article>
+          </li>
+
+
+          <li class="flex" data-project data-categories="web" data-reveal>
+            <article class="card-interactive flex w-full flex-col overflow-hidden">
+              <div class="media">
+                <span class="media-empty">
+                  <svg class="icon h-8 w-8" aria-hidden="true">
+                    <use href="#i-image"></use>
+                  </svg>
+                  Capture non disponible
+                </span>
+                <img src="images/projets/agrimeteo.webp" width="960" height="600"
+                  alt="AgriMétéo : carte des régions du Sénégal et météo du jour" loading="lazy" decoding="async">
+              </div>
+              <div class="flex flex-1 flex-col p-5 sm:p-6">
+                <h3 class="text-h3">AgriMétéo Sénégal</h3>
+                <p class="mt-2 text-[0.9375rem] text-muted">Météo agricole des 14 régions du Sénégal, avec une carte
+                  interactive et des graphiques. Les données viennent de l'API OpenWeatherMap.</p>
+                <ul class="mt-4 flex flex-wrap gap-1.5" aria-label="Technologies">
+                  <li class="badge">Angular</li>
+                  <li class="badge">Tailwind CSS</li>
+                  <li class="badge">Chart.js</li>
+                  <li class="badge">OpenWeatherMap</li>
+                </ul>
+                <div class="mt-auto flex flex-wrap gap-2 pt-5">
+                  <a class="btn-secondary px-3 text-sm" href="https://github.com/BigLineDev0/AgriMeteo" target="_blank"
+                    rel="noopener noreferrer"><svg class="icon h-4 w-4" aria-hidden="true">
+                      <use href="#i-github"></use>
+                    </svg>Code<span class="sr-only"> d'AgriMétéo (nouvel onglet)</span></a>
+                  <a class="btn-secondary px-3 text-sm" href="https://agri-meteo-ten.vercel.app/" target="_blank"
+                    rel="noopener noreferrer"><svg class="icon h-4 w-4" aria-hidden="true">
+                      <use href="#i-arrow-up-right"></use>
+                    </svg>Démo<span class="sr-only"> d'AgriMétéo (nouvel onglet)</span></a>
+                </div>
+              </div>
+            </article>
+          </li>
+
+          <li class="flex" data-project data-categories="web" data-reveal>
+            <article class="card-interactive flex w-full flex-col overflow-hidden">
+              <div class="media">
+                <span class="media-empty">
+                  <svg class="icon h-8 w-8" aria-hidden="true">
+                    <use href="#i-image"></use>
+                  </svg>
+                  Capture non disponible
+                </span>
+                <img src="images/projets/eco-stock.webp" width="960" height="600" alt="Requête Postman sur l'API Eco-Stock : liste des produits"
+                  loading="lazy" decoding="async">
+              </div>
+              <div class="flex flex-1 flex-col p-5 sm:p-6">
+                <h3 class="text-h3">Eco-Stock</h3>
+                <p class="mt-2 text-[0.9375rem] text-muted">Gestion de stocks alimentaires&nbsp;: API Django REST et
+                  PostgreSQL, interface Angular avec renouvellement automatique du jeton JWT, le tout lancé avec Docker
+                  Compose.</p>
+                <ul class="mt-4 flex flex-wrap gap-1.5" aria-label="Technologies">
+                  <li class="badge">Angular</li>
+                  <li class="badge">Django REST</li>
+                  <li class="badge">PostgreSQL</li>
+                  <li class="badge">Docker</li>
+                </ul>
+                <div class="mt-auto flex flex-wrap gap-2 pt-5">
+                  <a class="btn-secondary px-3 text-sm" href="https://github.com/BigLineDev0/eco-stock-frontend"
+                    target="_blank" rel="noopener noreferrer"><svg class="icon h-4 w-4" aria-hidden="true">
+                      <use href="#i-github"></use>
+                    </svg>Code front<span class="sr-only"> d'Eco-Stock (nouvel onglet)</span></a>
+                  <a class="btn-secondary px-3 text-sm" href="https://github.com/BigLineDev0/eco-stock-api"
+                    target="_blank" rel="noopener noreferrer"><svg class="icon h-4 w-4" aria-hidden="true">
+                      <use href="#i-github"></use>
+                    </svg>Code API<span class="sr-only"> d'Eco-Stock (nouvel onglet)</span></a>
+                </div>
+              </div>
+            </article>
+          </li>
+
+          <li class="flex" data-project data-categories="ia formation" data-reveal>
+            <article class="card-interactive flex w-full flex-col overflow-hidden">
+              <div class="media">
+                <span class="media-empty">
+                  <svg class="icon h-8 w-8" aria-hidden="true">
+                    <use href="#i-image"></use>
+                  </svg>
+                  Capture non disponible
+                </span>
+              </div>
+              <div class="flex flex-1 flex-col p-5 sm:p-6">
+                <h3 class="text-h3">Chatbot RAG</h3>
+                <p class="mt-2 text-[0.9375rem] text-muted">Chatbot qui répond aux questions des apprenants à partir du
+                  règlement intérieur de la formation. D'abord un prototype Streamlit, ensuite une API Django REST.</p>
+                <ul class="mt-4 flex flex-wrap gap-1.5" aria-label="Technologies">
+                  <li class="badge">Python</li>
+                  <li class="badge">LangChain</li>
+                  <li class="badge">OpenRouter</li>
+                  <li class="badge">Streamlit</li>
+                  <li class="badge">Django REST</li>
+                </ul>
+                <div class="mt-auto flex flex-wrap gap-2 pt-5">
+                  <a class="btn-secondary px-3 text-sm" href="https://github.com/BigLineDev0/chat-rag-api"
+                    target="_blank" rel="noopener noreferrer"><svg class="icon h-4 w-4" aria-hidden="true">
+                      <use href="#i-github"></use>
+                    </svg>Code<span class="sr-only"> du chatbot RAG (nouvel onglet)</span></a>
+                </div>
+              </div>
+            </article>
+          </li>
+
+          <li class="flex" data-project data-categories="web ia formation" data-reveal>
+            <article class="card-interactive flex w-full flex-col overflow-hidden">
+              <div class="media">
+                <span class="media-empty">
+                  <svg class="icon h-8 w-8" aria-hidden="true">
+                    <use href="#i-image"></use>
+                  </svg>
+                  Capture non disponible
+                </span>
+                <img src="images/projets/joj-news.webp" width="960" height="600"
+                  alt="Page d'accueil de JOJ News Dakar 2026" loading="lazy" decoding="async">
+              </div>
+              <div class="flex flex-1 flex-col p-5 sm:p-6">
+                <h3 class="text-h3">JOJ News</h3>
+                <p class="mt-2 text-[0.9375rem] text-muted">Site d'actualités sur les JOJ Dakar 2026. Les articles sont
+                  résumés par le modèle Mistral, exécuté en local avec Ollama.</p>
+                <ul class="mt-4 flex flex-wrap gap-1.5" aria-label="Technologies">
+                  <li class="badge">Django</li>
+                  <li class="badge">MySQL</li>
+                  <li class="badge">Bootstrap</li>
+                  <li class="badge">Ollama</li>
+                </ul>
+                <div class="mt-auto flex flex-wrap gap-2 pt-5">
+                  <a class="btn-secondary px-3 text-sm" href="https://github.com/BigLineDev0/Brief-JOJ-NEWS"
+                    target="_blank" rel="noopener noreferrer"><svg class="icon h-4 w-4" aria-hidden="true">
+                      <use href="#i-github"></use>
+                    </svg>Code<span class="sr-only"> de JOJ News (nouvel onglet)</span></a>
+                </div>
+              </div>
+            </article>
+          </li>
+
+          <li class="flex" data-project data-categories="web ia" data-reveal>
+            <article class="card-interactive flex w-full flex-col overflow-hidden">
+              <div class="media">
+                <span class="media-empty">
+                  <svg class="icon h-8 w-8" aria-hidden="true">
+                    <use href="#i-image"></use>
+                  </svg>
+                  Capture non disponible
+                </span>
+                <img src="images/projets/sunu-idees.webp" width="960" height="600"
+                  alt="SUNU-IDEES : formulaire d'idée et liste des idées" loading="lazy" decoding="async">
+              </div>
+              <div class="flex flex-1 flex-col p-5 sm:p-6">
+                <h3 class="text-h3">SUNU-IDEES</h3>
+                <p class="mt-2 text-[0.9375rem] text-muted">Boîte à idées collaborative. Les idées sont stockées dans
+                  Supabase et un modèle de langage est appelé via OpenRouter.
+                </p>
+                <ul class="mt-4 flex flex-wrap gap-1.5" aria-label="Technologies">
+                  <li class="badge">JavaScript</li>
+                  <li class="badge">Vite</li>
+                  <li class="badge">Tailwind CSS</li>
+                  <li class="badge">Supabase</li>
+                  <li class="badge">OpenRouter API</li>
+                </ul>
+                <div class="mt-auto flex flex-wrap gap-2 pt-5">
+                  <a class="btn-secondary px-3 text-sm" href="https://github.com/BigLineDev0/sunu-idees" target="_blank"
+                    rel="noopener noreferrer"><svg class="icon h-4 w-4" aria-hidden="true">
+                      <use href="#i-github"></use>
+                    </svg>Code<span class="sr-only"> de SUNU-IDEES (nouvel onglet)</span></a>
+                  <a class="btn-secondary px-3 text-sm" href="https://sunu-idees.vercel.app/" target="_blank"
+                    rel="noopener noreferrer"><svg class="icon h-4 w-4" aria-hidden="true">
+                      <use href="#i-arrow-up-right"></use>
+                    </svg>Démo<span class="sr-only"> de SUNU-IDEES (nouvel onglet)</span></a>
+                </div>
+              </div>
+            </article>
+          </li>
+
+          <li class="flex" data-project data-categories="mobile web" data-reveal>
+            <article class="card-interactive flex w-full flex-col overflow-hidden">
+              <div class="media">
+                <span class="media-empty">
+                  <svg class="icon h-8 w-8" aria-hidden="true">
+                    <use href="#i-image"></use>
+                  </svg>
+                  Capture non disponible
+                </span>
+              </div>
+              <div class="flex flex-1 flex-col p-5 sm:p-6">
+                <h3 class="text-h3">Clone Wave Mobile</h3>
+                <p class="mt-2 text-[0.9375rem] text-muted">Clone d'une application de paiement mobile, en trois
+                  étapes&nbsp;: l'API Laravel, l'interface Angular, puis l'application Flutter.</p>
+                <ul class="mt-4 flex flex-wrap gap-1.5" aria-label="Technologies">
+                  <li class="badge">Laravel</li>
+                  <li class="badge">Angular</li>
+                  <li class="badge">Flutter</li>
+                </ul>
+                <div class="mt-auto flex flex-wrap gap-2 pt-5">
+                  <a class="btn-secondary px-3 text-sm" href="https://github.com/BigLineDev0/Wave-clone-api"
+                    target="_blank" rel="noopener noreferrer"><svg class="icon h-4 w-4" aria-hidden="true">
+                      <use href="#i-github"></use>
+                    </svg>Code API<span class="sr-only"> du clone Wave (nouvel onglet)</span></a>
+                </div>
+              </div>
+            </article>
+          </li>
+
+          <li class="flex" data-project data-categories="web formation" data-reveal>
+            <article class="card-interactive flex w-full flex-col overflow-hidden">
+              <div class="media">
+                <span class="media-empty">
+                  <svg class="icon h-8 w-8" aria-hidden="true">
+                    <use href="#i-image"></use>
+                  </svg>
+                  Capture non disponible
+                </span>
+                <img src="images/projets/sta.webp" width="960" height="600" alt="Tableau de bord STA" loading="lazy"
+                  decoding="async">
+              </div>
+              <div class="flex flex-1 flex-col p-5 sm:p-6">
+                <h3 class="text-h3">STA</h3>
+                <p class="mt-2 text-[0.9375rem] text-muted">Système de Traçabilité d'Activité&nbsp;: journal des
+                  actions, tableau de bord et gestion des utilisateurs.</p>
+                <ul class="mt-4 flex flex-wrap gap-1.5" aria-label="Technologies">
+                  <li class="badge">Django</li>
+                  <li class="badge">MySQL</li>
+                  <li class="badge">Bootstrap 5</li>
+                  <li class="badge">Ollama</li>
+                </ul>
+                <div class="mt-auto flex flex-wrap gap-2 pt-5">
+                  <a class="btn-secondary px-3 text-sm" href="https://github.com/BigLineDev0/brief-STA-Django"
+                    target="_blank" rel="noopener noreferrer"><svg class="icon h-4 w-4" aria-hidden="true">
+                      <use href="#i-github"></use>
+                    </svg>Code<span class="sr-only"> de STA (nouvel onglet)</span></a>
+                </div>
+              </div>
+            </article>
+          </li>
+
+          <li class="flex" data-project data-categories="web formation" data-reveal>
+            <article class="card-interactive flex w-full flex-col overflow-hidden">
+              <div class="media">
+                <span class="media-empty">
+                  <svg class="icon h-8 w-8" aria-hidden="true">
+                    <use href="#i-image"></use>
+                  </svg>
+                  Capture non disponible
+                </span>
+                <img src="images/projets/star-buffet.webp" width="960" height="600"
+                  alt="Page d'accueil du restaurant Star Buffet" loading="lazy" decoding="async">
+              </div>
+              <div class="flex flex-1 flex-col p-5 sm:p-6">
+                <h3 class="text-h3">Restaurant Star Buffet</h3>
+                <p class="mt-2 text-[0.9375rem] text-muted">Site vitrine d'un restaurant, avec menu et réservation, en
+                  HTML et CSS.</p>
+                <ul class="mt-4 flex flex-wrap gap-1.5" aria-label="Technologies">
+                  <li class="badge">HTML</li>
+                  <li class="badge">CSS</li>
+                </ul>
+                <div class="mt-auto flex flex-wrap gap-2 pt-5">
+                  <a class="btn-secondary px-3 text-sm" href="https://github.com/BigLineDev0/atelier6-html-css"
+                    target="_blank" rel="noopener noreferrer"><svg class="icon h-4 w-4" aria-hidden="true">
+                      <use href="#i-github"></use>
+                    </svg>Code<span class="sr-only"> de Star Buffet (nouvel onglet)</span></a>
+                  <a class="btn-secondary px-3 text-sm" href="https://atelier6-html-css.vercel.app/" target="_blank"
+                    rel="noopener noreferrer"><svg class="icon h-4 w-4" aria-hidden="true">
+                      <use href="#i-arrow-up-right"></use>
+                    </svg>Démo<span class="sr-only"> de Star Buffet (nouvel onglet)</span></a>
+                </div>
+              </div>
+            </article>
+          </li>
+
+          <li class="flex" data-project data-categories="web" data-reveal>
+            <article class="card-interactive flex w-full flex-col overflow-hidden">
+              <div class="media">
+                <span class="media-empty">
+                  <svg class="icon h-8 w-8" aria-hidden="true">
+                    <use href="#i-image"></use>
+                  </svg>
+                  Capture non disponible
+                </span>
+                <img src="images/projets/todo-react.webp" width="640" height="400"
+                  alt="Todo List : saisie d'une tâche et filtres par priorité" loading="lazy" decoding="async">
+              </div>
+              <div class="flex flex-1 flex-col p-5 sm:p-6">
+                <h3 class="text-h3">Todo List React</h3>
+                <p class="mt-2 text-[0.9375rem] text-muted">Liste de tâches avec priorités et filtres, en React et
+                  TypeScript.</p>
+                <ul class="mt-4 flex flex-wrap gap-1.5" aria-label="Technologies">
+                  <li class="badge">React</li>
+                  <li class="badge">TypeScript</li>
+                  <li class="badge">Tailwind CSS</li>
+                </ul>
+                <div class="mt-auto flex flex-wrap gap-2 pt-5">
+                  <a class="btn-secondary px-3 text-sm" href="https://github.com/BigLineDev0/todo-react-js"
+                    target="_blank" rel="noopener noreferrer"><svg class="icon h-4 w-4" aria-hidden="true">
+                      <use href="#i-github"></use>
+                    </svg>Code<span class="sr-only"> de la Todo List (nouvel onglet)</span></a>
+                  <a class="btn-secondary px-3 text-sm" href="https://todo-react-js-theta.vercel.app/" target="_blank"
+                    rel="noopener noreferrer"><svg class="icon h-4 w-4" aria-hidden="true">
+                      <use href="#i-arrow-up-right"></use>
+                    </svg>Démo<span class="sr-only"> de la Todo List (nouvel onglet)</span></a>
+                </div>
+              </div>
+            </article>
+          </li>
         </ul>
 
-    </header>
-
-    <!-- ===== SECTION ACCUEIL ===== -->
-    <section id="home" class="home-section">
-        <div class="left">
-            <div>
-                <span class="typing">
-                    Développeur Full-Stack
-                </span>
-
-                <h2>Aliou DIALLO</h2>
-                <p>
-                    Salut ! Je suis Aliou, un passionné de développement web et d'intelligence artificielle.
-                    Actuellement en formation à Simplon Sénégal, je crée des expériences numériques innovantes
-                    et performantes.
-                </p>
-
-                <div class="buttons">
-                    <a href="#contact" class="btn">
-                        <i class="fa-solid fa-envelope"></i>
-                        Me Contacter
-                    </a>
-                    <a href="CV_Aliou_DIALLO_FullStack_Integrateur.pdf" download="aliou_diallo_cv.pdf" class="download-cv" target="_blank">
-                        <i class="fa-solid fa-download"></i>
-                        Télécharger CV
-                    </a>
-                </div>
-            </div>
+        <!-- Liste repliée sur 6 projets : bouton affiché par projects.js -->
+        <div class="mt-10 text-center">
+          <button id="projets-plus" type="button" class="btn-secondary" aria-controls="projets-liste"
+            aria-expanded="false" hidden>Voir tous les projets</button>
         </div>
-
-        <div class="right">
-            <div class="right-block"></div>
-            <img class="right-image" src="images/aliou.jpg" alt="image profil">
-        </div>
-
+      </div>
     </section>
 
-    <!-- ===== SECTION A PROPOS ===== -->
-    <section id="about" class="about-section">
+    <!-- ========== COMPÉTENCES ========== -->
+    <section id="competences" class="section section-alt" aria-labelledby="titre-competences">
+      <div class="page">
+        <header class="section-header">
+          <h2 id="titre-competences" class="section-title">Compétences</h2>
+          <p class="section-desc">Les technologies et outils que j'utilise dans mes projets.</p>
+        </header>
 
-        <!-- Titre -->
-        <div class="section-title">
-            <h2>À <span class="title">Propos</span></h2>
-            <p>Qui suis-je et ce que je fais</p>
+        <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <article class="card p-6" data-reveal>
+            <h3 class="text-h3">Frontend</h3>
+            <ul class="mt-5 flex flex-wrap gap-2">
+              <li class="tech"><img class="tech-logo"
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@2.17.0/icons/html5/html5-original.svg" width="20"
+                  height="20" alt="" loading="lazy" decoding="async">HTML</li>
+              <li class="tech"><img class="tech-logo"
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@2.17.0/icons/css3/css3-original.svg" width="20"
+                  height="20" alt="" loading="lazy" decoding="async">CSS</li>
+              <li class="tech"><img class="tech-logo"
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@2.17.0/icons/tailwindcss/tailwindcss-original.svg"
+                  width="20" height="20" alt="" loading="lazy" decoding="async">Tailwind CSS</li>
+              <li class="tech"><img class="tech-logo"
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@2.17.0/icons/javascript/javascript-original.svg"
+                  width="20" height="20" alt="" loading="lazy" decoding="async">JavaScript</li>
+              <li class="tech"><img class="tech-logo"
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@2.17.0/icons/typescript/typescript-original.svg"
+                  width="20" height="20" alt="" loading="lazy" decoding="async">TypeScript</li>
+              <li class="tech"><img class="tech-logo"
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@2.17.0/icons/angular/angular-original.svg"
+                  width="20" height="20" alt="" loading="lazy" decoding="async">Angular</li>
+              <li class="tech"><img class="tech-logo"
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@2.17.0/icons/react/react-original.svg" width="20"
+                  height="20" alt="" loading="lazy" decoding="async">React</li>
+              <li class="tech"><img class="tech-logo"
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@2.17.0/icons/vuejs/vuejs-original.svg" width="20"
+                  height="20" alt="" loading="lazy" decoding="async">Vue.js</li>
+            </ul>
+          </article>
+
+          <article class="card p-6" data-reveal>
+            <h3 class="text-h3">Backend</h3>
+            <ul class="mt-5 flex flex-wrap gap-2">
+              <li class="tech"><img class="tech-logo"
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@2.17.0/icons/python/python-original.svg" width="20"
+                  height="20" alt="" loading="lazy" decoding="async">Python</li>
+              <li class="tech"><img class="tech-logo tech-logo-dark"
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@2.17.0/icons/django/django-plain.svg" width="20"
+                  height="20" alt="" loading="lazy" decoding="async">Django</li>
+              <li class="tech"><img class="tech-logo"
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@2.17.0/icons/djangorest/djangorest-original.svg"
+                  width="20" height="20" alt="" loading="lazy" decoding="async">Django REST Framework</li>
+              <li class="tech"><img class="tech-logo"
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@2.17.0/icons/fastapi/fastapi-original.svg"
+                  width="20" height="20" alt="" loading="lazy" decoding="async">FastAPI</li>
+              <li class="tech"><img class="tech-logo"
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@2.17.0/icons/php/php-original.svg" width="20"
+                  height="20" alt="" loading="lazy" decoding="async">PHP</li>
+              <li class="tech"><img class="tech-logo"
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@2.17.0/icons/laravel/laravel-original.svg"
+                  width="20" height="20" alt="" loading="lazy" decoding="async">Laravel</li>
+            </ul>
+          </article>
+
+          <article class="card p-6" data-reveal>
+            <h3 class="text-h3">Bases de données</h3>
+            <ul class="mt-5 flex flex-wrap gap-2">
+              <li class="tech"><img class="tech-logo"
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@2.17.0/icons/postgresql/postgresql-original.svg"
+                  width="20" height="20" alt="" loading="lazy" decoding="async">PostgreSQL</li>
+              <li class="tech"><img class="tech-logo"
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@2.17.0/icons/mysql/mysql-original.svg" width="20"
+                  height="20" alt="" loading="lazy" decoding="async">MySQL</li>
+              <li class="tech"><img class="tech-logo"
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@2.17.0/icons/supabase/supabase-original.svg"
+                  width="20" height="20" alt="" loading="lazy" decoding="async">Supabase</li>
+              <li class="tech"><img class="tech-logo"
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@2.17.0/icons/firebase/firebase-original.svg"
+                  width="20" height="20" alt="" loading="lazy" decoding="async">Firebase</li>
+              <li class="tech"><img class="tech-logo"
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@2.17.0/icons/mongodb/mongodb-original.svg"
+                  width="20" height="20" alt="" loading="lazy" decoding="async">MongoDB</li>
+            </ul>
+          </article>
+
+          <article class="card p-6" data-reveal>
+            <h3 class="text-h3">Intelligence artificielle</h3>
+            <ul class="mt-5 flex flex-wrap gap-2">
+              <li class="tech"><svg class="icon text-muted" aria-hidden="true">
+                  <use href="#i-file-search"></use>
+                </svg>RAG</li>
+              <li class="tech"><img class="tech-logo tech-logo-dark"
+                  src="https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/langchain.svg" width="20" height="20"
+                  alt="" loading="lazy" decoding="async">LangChain</li>
+              <li class="tech"><img class="tech-logo tech-logo-dark"
+                  src="https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/huggingface.svg" width="20" height="20"
+                  alt="" loading="lazy" decoding="async">Hugging Face</li>
+              <li class="tech"><img class="tech-logo tech-logo-dark"
+                  src="https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/openai.svg" width="20" height="20" alt=""
+                  loading="lazy" decoding="async">Whisper</li>
+              <li class="tech"><img class="tech-logo tech-logo-dark"
+                  src="https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/ollama.svg" width="20" height="20" alt=""
+                  loading="lazy" decoding="async">Ollama</li>
+              <li class="tech"><svg class="icon text-muted" aria-hidden="true">
+                  <use href="#i-message"></use>
+                </svg>API de LLM</li>
+            </ul>
+          </article>
+
+          <article class="card p-6" data-reveal>
+            <h3 class="text-h3">Mobile</h3>
+            <ul class="mt-5 flex flex-wrap gap-2">
+              <li class="tech"><img class="tech-logo"
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@2.17.0/icons/flutter/flutter-original.svg"
+                  width="20" height="20" alt="" loading="lazy" decoding="async">Flutter</li>
+              <li class="tech"><img class="tech-logo"
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@2.17.0/icons/dart/dart-original.svg" width="20"
+                  height="20" alt="" loading="lazy" decoding="async">Dart</li>
+              <li class="tech"><img class="tech-logo"
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@2.17.0/icons/react/react-original.svg" width="20"
+                  height="20" alt="" loading="lazy" decoding="async">React Native</li>
+            </ul>
+          </article>
+
+          <article class="card p-6" data-reveal>
+            <h3 class="text-h3">Outils et méthodes</h3>
+            <ul class="mt-5 flex flex-wrap gap-2">
+              <li class="tech"><img class="tech-logo"
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@2.17.0/icons/git/git-original.svg" width="20"
+                  height="20" alt="" loading="lazy" decoding="async">Git et Git Flow</li>
+              <li class="tech"><img class="tech-logo"
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@2.17.0/icons/docker/docker-original.svg" width="20"
+                  height="20" alt="" loading="lazy" decoding="async">Docker</li>
+              <li class="tech"><img class="tech-logo"
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@2.17.0/icons/postman/postman-original.svg"
+                  width="20" height="20" alt="" loading="lazy" decoding="async">Postman</li>
+              <li class="tech"><img class="tech-logo"
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@2.17.0/icons/figma/figma-original.svg" width="20"
+                  height="20" alt="" loading="lazy" decoding="async">Figma</li>
+              <li class="tech"><img class="tech-logo"
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@2.17.0/icons/trello/trello-original.svg" width="20"
+                  height="20" alt="" loading="lazy" decoding="async">Trello</li>
+              <li class="tech"><img class="tech-logo tech-logo-dark"
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@2.17.0/icons/vercel/vercel-original.svg" width="20"
+                  height="20" alt="" loading="lazy" decoding="async">Vercel</li>
+              <li class="tech"><img class="tech-logo tech-logo-dark"
+                  src="https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/n8n.svg" width="20" height="20" alt=""
+                  loading="lazy" decoding="async">n8n</li>
+              <li class="tech"><svg class="icon text-muted" aria-hidden="true">
+                  <use href="#i-kanban"></use>
+                </svg>Scrum</li>
+            </ul>
+          </article>
         </div>
-
-        <div class="about-container">
-
-            <!-- Colonne gauche : photo -->
-            <div class="about-left">
-                <div class="about-image-wrapper">
-                    <img src="images/profil.png" alt="Photo Aliou Diallo">
-                </div>
-                <span class="about-signature">
-                    Développeur Web & IA
-                </span>
-            </div>
-
-            <!-- Colonne droite : contenu -->
-            <div class="about-right">
-
-                <!-- <h3>
-                    Salut, je suis Aliou – Développeur Web & IA en formation
-                </h3> -->
-
-                <p>
-                    Je suis actuellement en formation en Développement Web & Intelligence Artificielle
-                    à Simplon Sénégal. Passionné par le web, je conçois des interfaces modernes
-                    et des applications performantes.
-                </p>
-
-                <!-- Objectif professionnel -->
-                <div class="about-objective">
-                    <h4>Objectif professionnel</h4>
-                    <p>
-                        Mon objectif est de devenir développeur full-stack,
-                        spécialisé dans la conception et le développement
-                        d’applications web modernes, sécurisées et évolutives.
-                    </p>
-                    <p>
-                        Je souhaite mettre mes compétences en développement web
-                        et en intelligence artificielleau service de projets
-                        innovants à fort impact, aussi bien en entreprise qu’en freelance.
-                    </p>
-                </div>
-
-
-                <!-- Timeline -->
-                <div class="about-timeline">
-
-                    <div class="timeline-item">
-                        <span class="year">11 nov. 2025 à Présent</span>
-                        <p>Formation Développement Web & IA – Simplon Sénégal</p>
-                    </div>
-
-                    <div class="timeline-item">
-                        <span class="year">2023 - 2025</span>
-                        <p>Master en Conception & Développement d’Applications</p>
-                    </div>
-
-                    <div class="timeline-item">
-                        <span class="year">2019 - 2022</span>
-                        <p>Licence en Informatique Développement d’Applications (IDA)</p>
-                    </div>
-
-                </div>
-
-            </div>
-        </div>
+      </div>
     </section>
 
-    <!-- ===== SECTION COMPÉTENCES ===== -->
-    <section id="skills" class="skills-section">
+    <!-- ========== EXPÉRIENCES ========== -->
+    <section id="experiences" class="section" aria-labelledby="titre-experiences">
+      <div class="page">
+        <header class="section-header">
+          <h2 id="titre-experiences" class="section-title">Expériences</h2>
+        </header>
 
-        <div class="section-title">
-            <h2>Mes <span class="title">Compétences</span></h2>
-            <p>Technologies et outils que j’utilise</p>
-        </div>
-
-        <div class="skills-container">
-
-            <!-- Carte Frontend -->
-            <div class="skills-card">
-                <div class="skills-header">
-                    <span><i class="fa-solid fa-code"></i></span>
-                    <h3>Frontend</h3>
-                </div>
-
-                <div class="skill">
-                    <div class="skill-info">
-                        <span>HTML / CSS</span>
-                        <span>95%</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress" style="--level:95%;"></div>
-                    </div>
-                </div>
-
-                <div class="skill">
-                    <div class="skill-info">
-                        <span>Bootstrap et Tailwind CSS</span>
-                        <span>90%</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress" style="--level:90%;"></div>
-                    </div>
-                </div>
-
-                <div class="skill">
-                    <div class="skill-info">
-                        <span>JavaScript</span>
-                        <span>80%</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress" style="--level:80%;"></div>
-                    </div>
-                </div>
-
-                <div class="skill">
-                    <div class="skill-info">
-                        <span>Angular & TypeScript</span>
-                        <span>70%</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress" style="--level:70%;"></div>
-                    </div>
-                </div>
-
-                <div class="skill">
-                    <div class="skill-info">
-                        <span>React.js </span>
-                        <span>50%</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress" style="--level:50%;"></div>
-                    </div>
-                </div>
-
-               
+        <ol class="mx-auto max-w-3xl">
+          <li class="timeline-item" data-reveal>
+            <span class="timeline-marker" aria-hidden="true"></span>
+            <div class="card p-6 sm:p-7">
+              <p class="text-sm text-muted"><time datetime="2025-11">Novembre 2025</time> – <time
+                  datetime="2026-10">octobre 2026</time></p>
+              <h3 class="mt-1 text-h3">Développeur Full-Stack en formation</h3>
+              <p class="mt-1 font-medium text-accent">Simplon Sénégal</p>
+              <ul class="mt-4 grid list-disc gap-2 pl-5 marker:text-accent">
+                <li>Lead dev frontend sur Andë Sétal, dans une équipe de 4 organisée en Git Flow, avec 8 jours pour
+                  livrer.</li>
+                <li>Projet de certification&nbsp;: SenLab, avec le laboratoire UMRED comme site pilote.</li>
+                <li>Piste de pré-incubation en entrepreneuriat autour de SenLab.</li>
+              </ul>
+              <ul class="mt-4 flex flex-wrap gap-1.5" aria-label="Technologies">
+                <li class="badge">Angular</li>
+                <li class="badge">Django</li>
+                <li class="badge">FastAPI</li>
+                <li class="badge">PostgreSQL</li>
+                <li class="badge">RAG</li>
+                <li class="badge">Flutter</li>
+              </ul>
             </div>
+          </li>
 
-            <!-- Carte Backend -->
-            <div class="skills-card">
-                <div class="skills-header">
-                    <span><i class="fa-solid fa-server"></i></span>
-                    <h3>Backend</h3>
-                </div>
-
-                <div class="skill">
-                    <div class="skill-info">
-                        <span>Python</span>
-                        <span>80%</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress" style="--level:80%;"></div>
-                    </div>
-                </div>
-
-                <div class="skill">
-                    <div class="skill-info">
-                        <span>Django</span>
-                        <span>80%</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress" style="--level:80%;"></div>
-                    </div>
-                </div>
-
-                <div class="skill">
-                    <div class="skill-info">
-                        <span>PHP</span>
-                        <span>78%</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress" style="--level:78%;"></div>
-                    </div>
-                </div>
-
-                <div class="skill">
-                    <div class="skill-info">
-                        <span>Laravel</span>
-                        <span>80%</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress" style="--level:80%;"></div>
-                    </div>
-                </div>
-
-
-                <div class="skill">
-                    <div class="skill-info">
-                        <span>API REST Django Rest Framework</span>
-                        <span>80%</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress" style="--level:80%;"></div>
-                    </div>
-                </div>
-
-                
+          <li class="timeline-item" data-reveal>
+            <span class="timeline-marker" aria-hidden="true"></span>
+            <div class="card p-6 sm:p-7">
+              <p class="text-sm text-muted">Depuis 2022</p>
+              <h3 class="mt-1 text-h3">Assistant, formateur puis développeur full-stack</h3>
+              <p class="mt-1 font-medium text-accent">Groupe Codeurs, Mbour</p>
+              <ul class="mt-4 grid list-disc gap-2 pl-5 marker:text-accent">
+                <li>Accompagnement des apprenants sur leurs exercices et leurs projets.</li>
+                <li>Préparation de supports de cours, par exemple une séance de révision HTML/CSS avec exercices.</li>
+                <li>Interventions en développement web, en infographie et en bureautique.</li>
+              </ul>
+              <ul class="mt-4 flex flex-wrap gap-1.5" aria-label="Technologies">
+                <li class="badge">HTML</li>
+                <li class="badge">CSS</li>
+                <li class="badge">Pédagogie</li>
+              </ul>
             </div>
-
-            <!-- Carte Base de données -->
-            <div class="skills-card">
-                <div class="skills-header">
-                    <span><i class="fa-solid fa-database"></i></span>
-                    <h3>Base de données</h3>
-                </div>
-
-                <div class="skill">
-                    <div class="skill-info">
-                        <span>MySQL</span>
-                        <span>90%</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress" style="--level:72%;"></div>
-                    </div>
-                </div>
-
-                <div class="skill">
-                    <div class="skill-info">
-                        <span>PostgreSQL</span>
-                        <span>60%</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress" style="--level:40%;"></div>
-                    </div>
-                </div>
-
-
-                <div class="skill">
-                    <div class="skill-info">
-                        <span>MongoDB</span>
-                        <span>30%</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress" style="--level:30%;"></div>
-                    </div>
-                </div>
-
-                <div class="skill">
-                    <div class="skill-info">
-                        <span>Supabase</span>
-                        <span>50%</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress" style="--level:50%;"></div>
-                    </div>
-                </div>
-
-                <div class="skill">
-                    <div class="skill-info">
-                        <span>Firebase</span>
-                        <span>60%</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress" style="--level:60%;"></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Carte Mobiles -->
-            <div class="skills-card">
-                <div class="skills-header">
-                    <span><i class="fa-solid fa-mobile-screen-button"></i></span>
-                    <h3>Développement Mobile</h3>
-                </div>
-
-                <div class="skill">
-                    <div class="skill-info">
-                        <span>Flutter</span>
-                        <span>60%</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress" style="--level:40%;"></div>
-                    </div>
-                </div>
-
-                <div class="skill">
-                    <div class="skill-info">
-                        <span>React Native</span>
-                        <span>30%</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress" style="--level:30%;"></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Carte outils DevOps -->
-            <div class="skills-card">
-                <div class="skills-header">
-                    <span><i class="fa-solid fa-tools"></i></span>
-                    <h3>Outils DevOps</h3>
-                </div>
-
-                <div class="skill">
-                    <div class="skill-info">
-                        <span>Git</span>
-                        <span>95%</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress" style="--level:95%;"></div>
-                    </div>
-                </div>
-
-                <div class="skill">
-                    <div class="skill-info">
-                        <span>Docker</span>
-                        <span>60%</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress" style="--level:60%;"></div>
-                    </div>
-                </div>
-
-                <div class="skill">
-                    <div class="skill-info">
-                        <span>Postman</span>
-                        <span>70%</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress" style="--level:70%;"></div>
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- Carte outils collaboratifs -->
-            <div class="skills-card">
-                <div class="skills-header">
-                    <span><i class="fa-solid fa-users"></i></span>
-                    <h3>Outils collaboratifs</h3>
-                </div>
-
-                <div class="skill">
-                    <div class="skill-info">
-                        <span>Google Workspace</span>
-                        <span>95%</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress" style="--level:95%;"></div>
-                    </div>
-                </div>
-
-                <div class="skill">
-                    <div class="skill-info">
-                        <span>Trello</span>
-                        <span>78%</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress" style="--level:78%;"></div>
-                    </div>
-                </div>
-
-                <div class="skill">
-                    <div class="skill-info">
-                        <span>Figma</span>
-                        <span>80%</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress" style="--level:80%;"></div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
+          </li>
+        </ol>
+      </div>
     </section>
 
-    <!-- ===== SECTION PROJETS ===== -->
-    <section id="projects" class="projects-section">
-        <div class="section-title">
-            <h2>Mes <span class="title">Projets</span></h2>
-            <p>Quelques-uns de mes travaux récents</p>
+    <!-- ========== CONTACT ========== -->
+    <section id="contact" class="section section-alt" aria-labelledby="titre-contact">
+      <div class="page">
+        <header class="section-header">
+          <h2 id="titre-contact" class="section-title">Contactez-moi</h2>
+          <p class="section-desc">Un projet, une mission ou un poste à pourvoir&nbsp;? Écrivez-moi, je vous réponds par
+            email.</p>
+        </header>
+
+        <div class="grid gap-8 lg:grid-cols-12">
+          <!-- Formulaire envoyé via Formspree (voir contact.js) ; sans JavaScript, les liens directs restent disponibles -->
+          <form id="contact-form" class="card p-5 sm:p-8 lg:col-span-7" novalidate aria-labelledby="titre-formulaire">
+            <h3 id="titre-formulaire" class="text-h3">Envoyer un message</h3>
+            <p class="mt-2 text-sm text-muted">Tous les champs sont obligatoires.</p>
+
+            <div class="mt-7 grid gap-5 sm:grid-cols-2">
+              <div>
+                <label class="field-label" for="nom">Nom complet</label>
+                <input class="field" id="nom" name="nom" type="text" autocomplete="name" required
+                  aria-describedby="nom-erreur">
+                <p class="field-error" id="nom-erreur" hidden></p>
+              </div>
+              <div>
+                <label class="field-label" for="email">Email</label>
+                <input class="field" id="email" name="email" type="email" inputmode="email" autocomplete="email"
+                  spellcheck="false" required aria-describedby="email-erreur">
+                <p class="field-error" id="email-erreur" hidden></p>
+              </div>
+              <div class="sm:col-span-2">
+                <label class="field-label" for="sujet">Sujet</label>
+                <input class="field" id="sujet" name="sujet" type="text" required aria-describedby="sujet-erreur">
+                <p class="field-error" id="sujet-erreur" hidden></p>
+              </div>
+              <div class="sm:col-span-2">
+                <label class="field-label" for="message">Message</label>
+                <textarea class="field min-h-[10rem] resize-y" id="message" name="message" rows="6" required
+                  aria-describedby="message-aide message-erreur"></textarea>
+                <p class="mt-2 text-xs text-muted" id="message-aide">20 caractères minimum.</p>
+                <p class="field-error" id="message-erreur" hidden></p>
+              </div>
+
+              <!-- Piège à robots : champ invisible que seuls les robots remplissent -->
+              <div class="hidden" aria-hidden="true">
+                <label for="site-web">Ne pas remplir ce champ</label>
+                <input id="site-web" name="_gotcha" type="text" tabindex="-1" autocomplete="off">
+              </div>
+
+              <div class="sm:col-span-2">
+                <div class="flex items-start gap-3">
+                  <input class="mt-0.5 h-5 w-5 shrink-0 cursor-pointer accent-accent" id="consentement"
+                    name="consentement" type="checkbox" value="oui" required aria-describedby="consentement-erreur">
+                  <label class="cursor-pointer text-sm text-muted" for="consentement">J'accepte que ces informations
+                    soient transmises via Formspree et utilisées uniquement pour me répondre.</label>
+                </div>
+                <p class="field-error" id="consentement-erreur" hidden></p>
+              </div>
+            </div>
+
+            <div class="mt-8 grid gap-4 sm:flex sm:flex-row-reverse sm:items-center sm:justify-between">
+              <button id="contact-submit" type="submit" class="btn-primary w-full sm:w-auto">
+                <svg class="icon h-4 w-4" aria-hidden="true" data-icon-idle>
+                  <use href="#i-send"></use>
+                </svg>
+                <svg class="icon hidden h-4 w-4 animate-spin" aria-hidden="true" data-icon-busy>
+                  <use href="#i-loader"></use>
+                </svg>
+                <span data-label>Envoyer le message</span>
+              </button>
+              <div id="contact-status" class="text-sm" role="status" aria-live="polite"></div>
+            </div>
+          </form>
+
+          <div class="grid content-start gap-4 lg:col-span-5">
+            <h3 class="text-h3">Restons en contact</h3>
+
+            <a class="card-interactive flex items-center gap-4 p-5" href="mailto:alioudiallo.py@gmail.com">
+              <svg class="icon text-accent" aria-hidden="true">
+                <use href="#i-mail"></use>
+              </svg>
+              <span class="min-w-0">
+                <span class="block font-medium">Email</span>
+                <span class="block break-all text-sm text-muted">alioudiallo.py@gmail.com</span>
+              </span>
+            </a>
+            <a class="card-interactive flex items-center gap-4 p-5" href="tel:+221784751639">
+              <svg class="icon text-accent" aria-hidden="true">
+                <use href="#i-phone"></use>
+              </svg>
+              <span>
+                <span class="block font-medium">Téléphone</span>
+                <span class="block text-sm text-muted">+221 78 475 16 39</span>
+              </span>
+            </a>
+            <a class="card-interactive flex items-center gap-4 p-5" href="https://github.com/BigLineDev0"
+              target="_blank" rel="noopener noreferrer">
+              <svg class="icon text-accent" aria-hidden="true">
+                <use href="#i-github"></use>
+              </svg>
+              <span>
+                <span class="block font-medium">GitHub<span class="sr-only"> (nouvel onglet)</span></span>
+                <span class="block text-sm text-muted">github.com/BigLineDev0</span>
+              </span>
+            </a>
+            <a class="card-interactive flex items-center gap-4 p-5"
+              href="https://www.linkedin.com/in/aliou-diallo-6704681a1/" target="_blank" rel="noopener noreferrer">
+              <svg class="icon text-accent" aria-hidden="true">
+                <use href="#i-linkedin"></use>
+              </svg>
+              <span>
+                <span class="block font-medium">LinkedIn<span class="sr-only"> (nouvel onglet)</span></span>
+                <span class="block text-sm text-muted">Aliou DIALLO</span>
+              </span>
+            </a>
+
+            <div class="card mt-2 p-6">
+              <p class="flex items-center gap-2 font-medium">
+                <span class="h-2 w-2 rounded-full bg-accent" aria-hidden="true"></span>
+                Disponible pour de nouvelles missions
+              </p>
+              <p class="mt-2 text-sm text-muted">Postes en entreprise, missions freelance ou collaborations&nbsp;:
+                parlons de votre projet. Basé à Dakar, Sénégal.</p>
+            </div>
+          </div>
         </div>
-
-        <div class="projects-container">
-
-            <!-- AgriMétéo Sénéga -->
-            <div class="project-card">
-                <img src="images/agri-meteo.png" alt="Agrimeteo">
-                <div class="project-info">
-                    <h3>AgriMétéo Sénégal</h3>
-                    <p>
-                        Un tableau de bord interactif pour la gestion des données météorologiques et agricoles au Sénégal.
-
-                    </p>
-                    <div class="project-tech">
-                        <span>Angular</span>
-                        <span>Tailwind CSS</span>
-                        <span>API REST</span>
-                        <span>Git</span>
-                        <span>Chart.js</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="https://github.com/BigLineDev0/AgriMeteo" target="_blank">
-                            <i class="fa-brands fa-github"></i>
-                            Voir le code
-                        </a>
-                        <a href="https://agri-meteo-ten.vercel.app/" target="_blank">
-                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                            Voir le projet
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- SUNU-IDEES  -->
-            <div class="project-card">
-                <img src="images/sunu-idees.png" alt="Projet 1">
-                <div class="project-info">
-                    <h3>SUNU-IDEES</h3>
-                    <p>
-                        Une application web pour partager et discuter des idées innovantes, et
-                        stockage des données dans Supabase.
-                    </p>
-                    <div class="project-tech">
-                        <span>JavaScript</span>
-                        <span>Tailwind CSS</span>
-                        <span>Supabase</span>
-                        <span>OpenRouter API</span>
-                        <span>Vite.js</span>
-                        <span>Git</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="https://github.com/BigLineDev0/sunu-idees" target="_blank">
-                            <i class="fa-brands fa-github"></i>
-                            Voir le code
-                        </a>
-                        <a href="https://sunu-idees.vercel.app/" target="_blank">
-                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                            Voir le projet
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- STA – Système de Traçabilité d'Activité  -->
-            <div class="project-card">
-                <img src="images/STA.png" alt="STA">
-                <div class="project-info">
-                    <h3>STA – Système de Traçabilité d'Activité </h3>
-                    <p>
-                        Une application web pour suivre et gérer les activités d'une entreprise, avec authentification et gestion des utilisateurs.
-                    </p>
-                    <div class="project-tech">
-                        <span>Python</span>
-                        <span>Django</span>
-                        <span>MySQL</span>
-                        <span>Bootstrap 5</span>
-                        <span>IA</span>
-                        <span>Git & github</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="https://github.com/BigLineDev0/brief-STA-Django" target="_blank">
-                            <i class="fa-brands fa-github"></i>
-                            Voir le code
-                        </a>
-                        <a href="#" target="_blank">
-                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                            Voir le projet
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-             <!-- JOJ News -->
-            <div class="project-card">
-                <img src="images/joj-news.png" alt="JOJ News">
-                <div class="project-info">
-                    <h3>JOJ News – Plateforme de publication d'articles </h3>
-                    <p>
-                        Une plateforme web pour publier et partager des articles sur les jeux olympiques de la jeunesse qui se déroulent au Sénégal.
-                    </p>
-                    <div class="project-tech">
-                        <span>Python</span>
-                        <span>Django</span>
-                        <span>MySQL</span>
-                        <span>Bootstrap</span>
-                        <span>IA</span>
-                        <span>Git & github</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="https://github.com/BigLineDev0/Brief-JOJ-NEWS" target="_blank">
-                            <i class="fa-brands fa-github"></i>
-                            Voir le code
-                        </a>
-                        <a href="#">
-                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                            Voir le projet
-                        </a>
-                    </div>
-
-                </div>
-            </div>
-
-            <!-- Restaurant  Star Buffet  -->
-            <div class="project-card">
-                <img src="images/projet1.png" alt="STA">
-                <div class="project-info">
-                    <h3>Restaurant  Star Buffet</h3>
-                    <p>
-                        Site web pour un restaurant local avec menu en ligne et système de réservation.
-                    </p>
-                    <div class="project-tech">
-                        <span>HTML</span>
-                        <span>CSS</span>
-                        <span>Git & github</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="https://github.com/BigLineDev0/atelier6-html-css" target="_blank">
-                            <i class="fa-brands fa-github"></i>
-                            Voir le code
-                        </a>
-                        <a href="https://atelier6-html-css.vercel.app/" target="_blank">
-                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                            Voir le projet
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-           
-
-
-            <!-- Projet 3 -->
-            <div class="project-card">
-                <img src="images/umred.png" alt="Projet 3">
-                <div class="project-info">
-                    <h3>Plateforme UMRED</h3>
-                    <p>
-                        Plateforme web pour la gestion des ressources et réservation des rendez-vous.
-
-                    </p>
-                    <div class="project-tech">
-                        <span>Tailwind css</span>
-                        <span>PHP</span>
-                        <span>Laravel</span>
-                        <span>MySQL</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="https://github.com/BigLineDev0/memoire_m2" target="_blank">
-                            <i class="fa-brands fa-github"></i>
-                            Voir le code
-                        </a>
-                        <a href="#">
-                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                            Voir le projet
-                        </a>
-                    </div>
-
-                </div>
-            </div>
-
-             <!-- Projet 4 -->
-            <div class="project-card">
-                <img src="images/todolist.png" alt="Projet 4">
-                <div class="project-info">
-                    <h3>Todo List React</h3>
-                    <p>
-                        Application de gestion de tâches avec React.js pour organiser et suivre les activités quotidiennes.
-                    </p>
-                    <div class="project-tech">
-                        <span>Tailwind css</span>
-                        <span>React.js</span>
-                        <span>Typescript</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="https://github.com/BigLineDev0/todo-react-js" target="_blank">
-                            <i class="fa-brands fa-github"></i>
-                            Voir le code
-                        </a>
-                        <a href="https://todo-react-js-theta.vercel.app/" target="_blank">
-                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                            Voir le projet
-                        </a>
-                    </div>
-
-                </div>
-            </div>
-
-        </div>
+      </div>
     </section>
+  </main>
 
-    <!-- ===== SECTION CONTACT ===== -->
-    <section id="contact" class="contact-section">
-        <div class="section-title">
-            <h2>Restons en <span class="title">Contact</span></h2>
-            <p>N'hésitez pas à me contacter pour toute question</p>
-        </div>
+  <!-- ========== PIED DE PAGE ========== -->
+  <footer class="border-t border-line">
+    <p class="page py-8 text-center text-sm text-muted">© <span data-year>2026</span> Aliou DIALLO. Tous droits
+      réservés.</p>
+  </footer>
 
-        <div class="contact-container">
-            <div class="contact-info">
-                <h3>Coordonnées</h3>
-                <p>
-                    Vous pouvez me joindre via les informations ci-dessous.
-                </p>
-
-                <div class="info-group">
-                    <div class="contact-socials">
-                        <span>
-                            <i class="fa-solid fa-envelope"></i>
-                        </span>
-                        <div class="social-text">
-                            <h4>Email</h4>
-                            <p>alioudiallo.py@gmail.com</p>
-                        </div>
-                    </div>
-
-                    <div class="contact-socials">
-                        <span>
-                            <i class="fa-solid fa-phone"></i>
-                        </span>
-                        <div class="social-text">
-                            <h4>Téléphone</h4>
-                            <p>+221 78 475 16 39</p>
-                        </div>
-                    </div>
-
-                    <div class="contact-socials">
-                        <span>
-                            <i class="fa-solid fa-location-dot"></i>
-                        </span>
-                        <div class="social-text">
-                            <h4>Localisation</h4>
-                            <p>Dakar, Sénégal</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="reseaux-socials">
-                    <a href="#" target="_blank">
-                        <i class="fa-brands fa-facebook-f"></i>
-                    </a>
-                    <a href="#" target="_blank">
-                        <i class="fa-brands fa-linkedin-in"></i>
-                    </a>
-                    <a href="https://github.com/BigLineDev0" target="_blank">
-                        <i class="fa-brands fa-github"></i>
-                    </a>
-                </div>
-            </div>
-
-
-            <form class="contact-form">
-                <h3>Envoyez-moi un message</h3>
-                <p>Remplissez le formulaire ci-dessous et je vous répondrai dès que possible.</p>
-                <div class="form-group">
-                    <div class="form-grid">
-                        <div class="input-grid">
-                            <label>Nom Complet</label>
-                            <input type="text" placeholder="Votre Prénom et Nom">
-                        </div>
-                        <div class="input-grid">
-                            <label>Email</label>
-                            <input type="email" placeholder="Votre email">
-                        </div>
-
-                        <div class="input-grid full">
-                            <label>Sujet</label>
-                            <input type="text" placeholder="Votre sujet">
-                        </div>
-
-                        <div class="input-grid full">
-                            <label>Message</label>
-                            <textarea rows="4" placeholder="Votre message" required></textarea>
-                        </div>
-                    </div>
-                </div>
-                <button type="submit">Envoyer le message</button>
-            </form>
-        </div>
-    </section>
-
-    <!-- ========== PIED ========== -->
-    <footer class="footer">
-        <p>© 2026 – Aliou DIALLO. Tous droits réservés.</p>
-    </footer>
-
+  <!-- Retour en haut : bouton flottant en bas à droite, affiché après défilement (main.js) -->
+  <a id="to-top" class="to-top" href="#accueil" data-visible="false" aria-label="Retour en haut de page">
+    <svg class="icon" aria-hidden="true">
+      <use href="#i-arrow-up"></use>
+    </svg>
+  </a>
 </body>
 
 </html>
