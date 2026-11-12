@@ -1,0 +1,643 @@
+/*
+ * Feuille de styles du portfolio (Tailwind CSS v4).
+ * Les couleurs sont celles du site précédent, à l'identique : seules les variables de :root changent selon le thème.
+ */
+@import 'tailwindcss';
+
+/* Variante « light: » pour les rares ajustements propres au thème clair */
+@custom-variant light (&:where([data-theme='light'], [data-theme='light'] *));
+
+/* Polices auto-hébergées (sous-ensemble latin) */
+@font-face {
+  font-family: 'IBM Plex Sans';
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url('/fonts/plex-sans-latin.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Newsreader';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/newsreader-500-latin.woff2') format('woff2');
+}
+
+/* Thème sombre par défaut : noir chaud, accent ocre */
+:root {
+  --canvas: #13110e;
+  --surface: #1b1814;
+  --raised: #24201b;
+  --line: #38322a;
+  --field: #756b5e;
+  --ink: #ede7de;
+  --muted: #a99f91;
+  --accent: #e39b57;
+  --on-accent: #13110e;
+  --danger: #f0907a;
+  --shadow: #000000;
+  color-scheme: dark;
+}
+
+/* Thème clair : papier chaud, accent terre cuite assombri pour le contraste AA */
+:root[data-theme='light'] {
+  --canvas: #f6f2eb;
+  --surface: #fcfaf6;
+  --raised: #ede7dc;
+  --line: #d9cfbf;
+  --field: #8c8172;
+  --ink: #1c1915;
+  --muted: #5e564b;
+  --accent: #a04e1a;
+  --on-accent: #ffffff;
+  --danger: #b3261e;
+  --shadow: #3c2814;
+  color-scheme: light;
+}
+
+@theme inline {
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-raised: var(--raised);
+  --color-line: var(--line);
+  --color-field: var(--field);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-on-accent: var(--on-accent);
+  --color-danger: var(--danger);
+  --shadow-lift: 0 18px 40px -24px color-mix(in srgb, var(--shadow) 55%, transparent);
+}
+
+@theme {
+  --font-display: 'Newsreader', Georgia, 'Times New Roman', serif;
+  --font-sans: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+
+  /* Typographie fluide : minimum mobile (360 px), maximum vers 1280 px */
+  --text-hero: clamp(3.25rem, 1.4rem + 7.6vw, min(7.5rem, 13.5svh));
+  --text-hero--line-height: 0.95;
+  --text-hero--letter-spacing: -0.03em;
+  --text-display: clamp(2.75rem, 1.9rem + 3.8vw, 5.25rem);
+  --text-display--line-height: 1;
+  --text-display--letter-spacing: -0.02em;
+  --text-h2: clamp(2rem, 1.55rem + 2vw, 3rem);
+  --text-h2--line-height: 1.1;
+  --text-h2--letter-spacing: -0.015em;
+  --text-h3: clamp(1.25rem, 1.15rem + 0.5vw, 1.5rem);
+  --text-h3--line-height: 1.25;
+  --text-lead: clamp(1.0625rem, 1rem + 0.3vw, 1.25rem);
+  --text-lead--line-height: 1.65;
+
+  --spacing-section: clamp(4.5rem, 3.5rem + 5vw, 8rem);
+  --spacing-gutter: clamp(1rem, 0.4rem + 2.6vw, 2.5rem);
+  --spacing-header: 4.5rem;
+  --spacing-tap: 2.75rem; /* 44 px : taille minimale des zones tactiles */
+
+  --container-content: 75rem;
+  --container-prose: 62ch;
+
+  --ease-soft: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --default-transition-duration: 200ms;
+  --default-transition-timing-function: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+/* Verre : surface translucide, flou modéré, filet clair en haut pour le reflet */
+@utility glass {
+  background-color: color-mix(in oklab, var(--surface) 66%, transparent);
+  -webkit-backdrop-filter: blur(14px) saturate(120%);
+  backdrop-filter: blur(14px) saturate(120%);
+  border: 1px solid color-mix(in oklab, var(--line) 85%, transparent);
+  box-shadow:
+    inset 0 1px 0 0 color-mix(in oklab, var(--ink) 7%, transparent),
+    var(--shadow-lift);
+
+  @media (max-width: 767px) {
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+  }
+
+  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    background-color: var(--surface);
+  }
+}
+
+@layer base {
+  html {
+    background-color: var(--canvas);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    scroll-padding-top: 5.5rem;
+  }
+
+  body {
+    min-height: 100vh;
+    overflow-x: clip;
+    line-height: 1.625;
+  }
+
+  /* Les utilitaires display (flex, grid...) ne doivent jamais l'emporter sur l'attribut hidden */
+  [hidden] {
+    display: none !important;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    text-wrap: balance;
+  }
+
+  button {
+    cursor: pointer;
+  }
+
+  ::selection {
+    background-color: var(--accent);
+    color: var(--on-accent);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  /* Cibles de focus programmatique (sections, contenu principal) : pas de contour */
+  [tabindex='-1']:focus {
+    outline: none;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html:not(.lenis) {
+      scroll-behavior: smooth;
+    }
+  }
+
+  /* Lenis (équivalent de lenis.css) */
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+
+  .lenis.lenis-stopped,
+  html.scroll-locked {
+    overflow: hidden;
+  }
+
+  /* Bascule de thème : transition des couleurs pendant 400 ms (classe posée par useTheme) */
+  html.theme-transition,
+  html.theme-transition *,
+  html.theme-transition *::before,
+  html.theme-transition *::after {
+    transition:
+      background-color 400ms ease,
+      border-color 400ms ease,
+      color 400ms ease,
+      fill 400ms ease,
+      stroke 400ms ease !important;
+  }
+}
+
+@layer components {
+  /* Mise en page */
+  .page {
+    margin-inline: auto;
+    width: 100%;
+    max-width: var(--container-content);
+    padding-inline: var(--spacing-gutter);
+  }
+
+  .section {
+    padding-block: var(--spacing-section);
+  }
+
+  .skip-link {
+    @apply sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[60] focus:rounded-md focus:bg-accent focus:px-4 focus:py-3 focus:font-medium focus:text-on-accent;
+  }
+
+  /* Boutons */
+  .btn {
+    @apply inline-flex min-h-tap items-center justify-center gap-2 rounded-full px-5 py-2 text-[0.9375rem] leading-tight font-medium whitespace-nowrap transition-[background-color,color,border-color,box-shadow];
+  }
+
+  .btn-primary {
+    @apply bg-accent text-on-accent hover:bg-accent/85;
+    box-shadow: 0 12px 28px -14px color-mix(in oklab, var(--accent) 70%, transparent);
+  }
+
+  .btn-secondary {
+    @apply border border-line bg-surface/40 text-ink hover:border-accent hover:text-accent;
+  }
+
+  .btn-icon {
+    @apply inline-grid size-tap place-items-center rounded-full text-muted transition-colors hover:bg-raised hover:text-ink;
+  }
+
+  .social {
+    @apply inline-grid size-tap place-items-center rounded-full border border-line text-muted transition-colors hover:border-accent hover:bg-accent hover:text-on-accent;
+  }
+
+  /* Lien texte avec soulignement animé */
+  .link {
+    @apply bg-gradient-to-r from-accent to-accent bg-[length:0%_1px] bg-left-bottom bg-no-repeat pb-0.5 transition-[background-size,color] hover:bg-[length:100%_1px] hover:text-accent;
+  }
+
+  /* Rôle tapé lettre par lettre (TypedRole) : curseur clignotant */
+  .typed::after {
+    content: '';
+    @apply ml-0.5 inline-block h-[0.95em] w-0.5 translate-y-[0.12em] bg-accent;
+    animation: caret-blink 1s steps(1) infinite;
+  }
+
+  /* Point de disponibilité (repris du site d'origine) */
+  .status-dot {
+    @apply inline-block size-2 shrink-0 rounded-full bg-accent;
+  }
+
+  /* ---------- En-tête ---------- */
+  /* En-tête fixe et toujours visible pendant le défilement */
+  .site-header {
+    @apply fixed inset-x-0 top-0 z-50;
+  }
+
+  .header-bar {
+    @apply flex items-center justify-between gap-3 rounded-full border border-transparent;
+    height: var(--spacing-header);
+    transition:
+      height 350ms var(--ease-soft),
+      margin 350ms var(--ease-soft),
+      padding 350ms var(--ease-soft),
+      background-color 350ms ease,
+      border-color 350ms ease,
+      box-shadow 350ms ease;
+  }
+
+  .site-header[data-scrolled='true']:not([data-menu-open='true']) .header-bar {
+    @apply glass;
+    /* Verre plus dense que les cartes : les grands titres passent dessous pendant le défilement */
+    background-color: color-mix(in oklab, var(--surface) 82%, transparent);
+    height: 3.5rem;
+    margin-top: 0.75rem;
+    padding-inline: 1.25rem 0.375rem;
+  }
+
+  .logo {
+    @apply inline-flex min-h-tap items-center font-display text-xl whitespace-nowrap;
+  }
+
+  .nav-link {
+    @apply relative z-10 inline-flex h-10 items-center rounded-full px-4 text-[0.9375rem] text-muted transition-colors hover:text-ink aria-[current=true]:text-ink;
+  }
+
+  /* Pastille qui glisse sous le lien de la section active */
+  .nav-indicator {
+    @apply pointer-events-none absolute top-1/2 left-0 h-10 rounded-full bg-ink/[0.07] opacity-0;
+    transform: translateY(-50%);
+    transition:
+      transform 450ms var(--ease-soft),
+      width 450ms var(--ease-soft),
+      opacity 200ms ease;
+  }
+
+  .nav-indicator::after {
+    content: '';
+    @apply absolute bottom-1.5 left-1/2 h-0.5 w-3 -translate-x-1/2 rounded-full bg-accent;
+  }
+
+  /* Bouton hamburger : deux traits qui se croisent à l'ouverture */
+  .burger {
+    @apply relative inline-grid size-tap place-items-center rounded-full text-ink transition-colors hover:bg-raised;
+  }
+
+  .burger span {
+    @apply absolute h-[1.5px] w-5 rounded-full bg-current;
+    transition: transform 350ms var(--ease-soft);
+  }
+
+  .burger span:first-child {
+    transform: translateY(-4px);
+  }
+
+  .burger span:last-child {
+    transform: translateY(4px);
+  }
+
+  .burger[aria-expanded='true'] span:first-child {
+    transform: rotate(45deg);
+  }
+
+  .burger[aria-expanded='true'] span:last-child {
+    transform: rotate(-45deg);
+  }
+
+  /* Menu mobile plein écran : invisible tant que GSAP ne l'a pas ouvert */
+  .mobile-menu {
+    @apply invisible fixed inset-0 z-40 overflow-y-auto opacity-0;
+    background-color: color-mix(in oklab, var(--canvas) 90%, transparent);
+    -webkit-backdrop-filter: blur(18px);
+    backdrop-filter: blur(18px);
+  }
+
+  .menu-link {
+    @apply flex min-h-[3.5rem] items-center font-display text-[clamp(2rem,1.4rem+4vw,3rem)] leading-tight text-ink transition-colors hover:text-accent aria-[current=true]:text-accent;
+  }
+
+  /* ---------- Accueil ---------- */
+  .hero-halo {
+    @apply pointer-events-none absolute top-[30%] left-1/2 -z-10 aspect-square w-[min(48rem,130vw)] rounded-full lg:top-1/2 lg:left-[72%];
+    transform: translate(-50%, -50%);
+    background: radial-gradient(closest-side, color-mix(in oklab, var(--accent) 17%, transparent), transparent);
+  }
+
+  .portrait-stage {
+    @apply relative aspect-square w-[clamp(14rem,8rem+26vw,30rem)];
+  }
+
+  .ring {
+    @apply absolute rounded-full;
+  }
+
+  /* Anneau extérieur en pointillés, rotation très lente */
+  .ring-outer {
+    @apply inset-0 border border-dashed border-line;
+    animation: spin 90s linear infinite;
+  }
+
+  .ring-line {
+    @apply inset-[5%] border border-line;
+  }
+
+  /* Arc d'accent (repris du site précédent) qui tourne en sens inverse */
+  .ring-arc {
+    @apply inset-[5%];
+    background: conic-gradient(from 0deg, transparent 0 72%, var(--accent) 100%);
+    -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 2px));
+    mask: radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 2px));
+    animation: spin 30s linear infinite reverse;
+  }
+
+  .portrait-frame {
+    @apply absolute inset-[10%] overflow-hidden rounded-full bg-raised;
+    box-shadow:
+      0 0 0 1px color-mix(in oklab, var(--ink) 8%, transparent),
+      0 40px 80px -40px color-mix(in srgb, var(--shadow) 70%, transparent);
+  }
+
+  .hero-chip {
+    @apply glass absolute items-center gap-2 rounded-full px-3.5 py-1.5 text-sm whitespace-nowrap text-ink;
+  }
+
+  /* Retour en haut */
+  .to-top {
+    @apply glass fixed right-5 bottom-5 z-30 inline-grid size-12 place-items-center rounded-full text-ink transition-[opacity,visibility,transform,color] hover:text-accent sm:right-8 sm:bottom-8;
+  }
+
+  .to-top[data-visible='false'] {
+    @apply invisible translate-y-2 opacity-0;
+  }
+
+  /* ---------- Sections ---------- */
+  .section-title {
+    @apply text-h2;
+  }
+
+  /* Trait d'accent sous chaque titre de section (repris du site précédent) */
+  .section-title::after {
+    content: '';
+    @apply mt-5 block h-0.5 w-12 rounded-full bg-accent;
+  }
+
+  .section-desc {
+    @apply mt-5 max-w-2xl text-lead text-muted;
+  }
+
+  .card {
+    @apply rounded-3xl border border-line bg-surface;
+  }
+
+  .badge {
+    @apply inline-flex items-center rounded-full bg-raised px-2.5 py-0.5 text-xs leading-5 text-muted;
+  }
+
+  /* Éclairage discret qui suit le curseur (variables --mx / --my posées en JavaScript) */
+  .spotlight {
+    @apply relative isolate;
+  }
+
+  .spotlight::before {
+    content: '';
+    @apply pointer-events-none absolute inset-0 -z-10 rounded-[inherit] opacity-0 transition-opacity duration-300;
+    background: radial-gradient(
+      22rem circle at var(--mx, 50%) var(--my, 0%),
+      color-mix(in oklab, var(--accent) 13%, transparent),
+      transparent 65%
+    );
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .spotlight:hover::before {
+      @apply opacity-100;
+    }
+  }
+
+  /* Filtres de projets */
+  .chip {
+    @apply inline-flex min-h-tap items-center rounded-full border border-line px-4 text-sm text-muted transition-colors hover:border-field hover:text-ink;
+  }
+
+  .chip[aria-pressed='true'] {
+    @apply border-accent bg-accent text-on-accent;
+  }
+
+  /* Carrousel de projets : défilement horizontal natif avec accrochage, sans barre de défilement visible.
+     1 carte (avec aperçu de la suivante) sur mobile, 2 sur tablette, 3 sur desktop. */
+  .project-track {
+    @apply -mx-gutter flex snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain px-gutter pb-2 sm:mx-0 sm:gap-6 sm:px-0;
+    scroll-padding-inline: var(--spacing-gutter);
+    scrollbar-width: none;
+  }
+
+  .project-track::-webkit-scrollbar {
+    display: none;
+  }
+
+  @media (min-width: 640px) {
+    .project-track {
+      scroll-padding-inline: 0;
+    }
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .project-track {
+      cursor: grab;
+    }
+  }
+
+  .project-track[data-dragging='true'] {
+    @apply cursor-grabbing select-none;
+    scroll-snap-type: none;
+  }
+
+  .project-track[data-dragging='true'] a {
+    pointer-events: none;
+  }
+
+  .project-slot {
+    @apply flex w-[85%] shrink-0 snap-start sm:w-[calc((100%-1.5rem)/2)] lg:w-[calc((100%-3rem)/3)];
+  }
+
+  /* Pagination : point actif allongé */
+  .page-dot {
+    @apply grid h-tap min-w-6 place-items-center;
+  }
+
+  .page-dot span {
+    @apply block h-1.5 w-1.5 rounded-full bg-field/60 transition-[width,background-color] duration-300;
+  }
+
+  .page-dot:hover span {
+    @apply bg-muted;
+  }
+
+  .page-dot[aria-current='true'] span {
+    @apply w-6 bg-accent;
+  }
+
+  .carousel-button {
+    @apply inline-grid size-tap place-items-center rounded-full border border-line text-ink transition-colors hover:border-accent hover:bg-accent hover:text-on-accent disabled:pointer-events-none disabled:opacity-35;
+  }
+
+  .project-card {
+    @apply flex w-full flex-col rounded-[1.75rem] border border-line bg-surface p-3 transition-[border-color,box-shadow] duration-300 hover:border-accent/40 hover:shadow-lift;
+  }
+
+  /* Visuel encadré : la capture est posée dans un panneau, comme une page à l'écran */
+  .project-media {
+    @apply relative aspect-[16/10] overflow-hidden rounded-[1.25rem] bg-raised;
+  }
+
+  .project-media img {
+    @apply h-full w-full object-cover object-top transition-transform duration-700;
+  }
+
+  .project-card:hover .project-media img,
+  .project-feature:hover .project-media img {
+    @apply scale-[1.04];
+  }
+
+  .project-feature {
+    @apply grid overflow-hidden rounded-[2rem] border border-line bg-surface p-3 transition-[border-color,box-shadow] duration-300 hover:border-accent/40 hover:shadow-lift lg:grid-cols-12;
+  }
+
+  /* Lien texte des projets : flèche qui glisse au survol */
+  .project-link {
+    @apply inline-flex min-h-tap items-center gap-1.5 font-medium text-ink transition-colors hover:text-accent;
+  }
+
+  .project-link svg {
+    @apply transition-transform duration-300;
+  }
+
+  .project-link:hover svg {
+    @apply translate-x-0.5 -translate-y-0.5;
+  }
+
+  /* Compétences */
+  .tech {
+    @apply inline-flex min-h-10 items-center gap-2.5 rounded-full border border-line bg-canvas/70 px-3.5 text-sm transition-colors hover:border-field;
+  }
+
+  .tech-logo {
+    @apply size-5 shrink-0;
+  }
+
+  /* Logos noirs (Django, Vercel, Simple Icons) : éclaircis en thème sombre */
+  :root:not([data-theme='light']) .tech-logo-dark {
+    filter: grayscale(1) invert(1);
+  }
+
+  /* Expériences : repères allumés quand la ligne les atteint */
+  .timeline-marker {
+    @apply absolute top-[1.85rem] size-3 rounded-full border-2 border-accent bg-accent transition-[background-color,box-shadow] duration-500;
+    box-shadow: 0 0 0 5px color-mix(in oklab, var(--accent) 16%, transparent);
+  }
+
+  .timeline-armed .timeline-marker:not(.is-lit) {
+    @apply bg-canvas;
+    box-shadow: none;
+  }
+
+  /* Formulaire */
+  .field-label {
+    @apply mb-2 block text-sm font-medium text-ink;
+  }
+
+  .field {
+    @apply block min-h-tap w-full rounded-xl border border-field/70 bg-canvas/60 px-4 py-3 text-base text-ink transition-[border-color,box-shadow] placeholder:text-muted hover:border-field focus:border-accent focus:ring-4 focus:ring-accent/15 focus:outline-none;
+  }
+
+  .field[aria-invalid='true'] {
+    @apply border-danger;
+  }
+
+  .field-error {
+    @apply mt-2 text-sm text-danger;
+  }
+
+  /* Pied de page */
+  .footer-label {
+    @apply text-sm text-muted;
+  }
+}
+
+/* Grain très léger sur toute la page : donne de la matière aux fonds unis */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+:root[data-theme='light'] body::after {
+  opacity: 0.035;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes caret-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+
+/* Mouvement réduit : aucune boucle, aucune transition perceptible */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
